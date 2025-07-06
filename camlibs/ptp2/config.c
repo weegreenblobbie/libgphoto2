@@ -21,6 +21,7 @@
 #include "config.h"
 
 #include <math.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -7114,6 +7115,75 @@ static struct deviceproptableu8 nikon_z6_padvpvalue[] = {
 };
 GENERIC8TABLE(Nikon_Z6_PADVPValue,nikon_z6_padvpvalue)
 
+static struct deviceproptableu32 nikon_z8_shutterspeed2[] = {
+	{ "1/6400",		      1, PTP_VENDOR_NIKON },
+	{ "1/4000",		      2, PTP_VENDOR_NIKON },
+	{ "1/3200",		      3, PTP_VENDOR_NIKON },
+	{ "1/2500",		      4, PTP_VENDOR_NIKON },
+	{ "1/2000",		      5, PTP_VENDOR_NIKON },
+	{ "1/1600",		      6, PTP_VENDOR_NIKON },
+	{ "1/1250",		      8, PTP_VENDOR_NIKON },
+	{ "1/1000",		     10, PTP_VENDOR_NIKON },
+	{ "1/800",		     12, PTP_VENDOR_NIKON },
+	{ "1/640",		     15, PTP_VENDOR_NIKON },
+	{ "1/500",		     20, PTP_VENDOR_NIKON },
+	{ "1/400",		     25, PTP_VENDOR_NIKON },
+	{ "1/320",		     31, PTP_VENDOR_NIKON },
+	{ "1/250",		     40, PTP_VENDOR_NIKON },
+	{ "1/200",		     50, PTP_VENDOR_NIKON },
+	{ "1/160",		     62, PTP_VENDOR_NIKON },
+	{ "1/125",		     80, PTP_VENDOR_NIKON },
+	{ "1/100",		    100, PTP_VENDOR_NIKON },
+	{ "1/80",		    125, PTP_VENDOR_NIKON },
+	{ "1/60",		    166, PTP_VENDOR_NIKON },
+	{ "1/50",		    200, PTP_VENDOR_NIKON },
+	{ "1/40",		    250, PTP_VENDOR_NIKON },
+	{ "1/30",		    333, PTP_VENDOR_NIKON },
+	{ "1/25",		    400, PTP_VENDOR_NIKON },
+	{ "1/20",		    500, PTP_VENDOR_NIKON },
+	{ "1/15",		    666, PTP_VENDOR_NIKON },
+	{ "1/13",		    769, PTP_VENDOR_NIKON },
+	{ "1/10",		   1000, PTP_VENDOR_NIKON },
+	{ "1/8",		   1250, PTP_VENDOR_NIKON },
+	{ "1/6",		   1666, PTP_VENDOR_NIKON },
+	{ "1/5",		   2000, PTP_VENDOR_NIKON },
+	{ "1/4",		   2500, PTP_VENDOR_NIKON },
+	{ "1/3",		   3333, PTP_VENDOR_NIKON },
+	{ "1/2.5",	       4000, PTP_VENDOR_NIKON },
+	{ "1/2",	       5000, PTP_VENDOR_NIKON },
+	{ "1/1.6",	       6250, PTP_VENDOR_NIKON },
+	{ "1/1.3",	       7692, PTP_VENDOR_NIKON },
+	{ "1",		      10000, PTP_VENDOR_NIKON },
+	{ "1.3",	      13000, PTP_VENDOR_NIKON },
+	{ "1.6",	      16000, PTP_VENDOR_NIKON },
+	{ "2",		      20000, PTP_VENDOR_NIKON },
+	{ "2.5",	      25000, PTP_VENDOR_NIKON },
+	{ "3",		      30000, PTP_VENDOR_NIKON },
+	{ "4",		      40000, PTP_VENDOR_NIKON },
+	{ "5",		      50000, PTP_VENDOR_NIKON },
+	{ "6",		      60000, PTP_VENDOR_NIKON },
+	{ "8",		      80000, PTP_VENDOR_NIKON },
+	{ "10",		     100000, PTP_VENDOR_NIKON },
+	{ "13",		     130000, PTP_VENDOR_NIKON },
+	{ "15",		     150000, PTP_VENDOR_NIKON },
+	{ "20",		     200000, PTP_VENDOR_NIKON },
+	{ "25",		     250000, PTP_VENDOR_NIKON },
+	{ "30",		     300000, PTP_VENDOR_NIKON },
+	{ "60",		     600000, PTP_VENDOR_NIKON },
+	{ "90",		     900000, PTP_VENDOR_NIKON },
+	{ "120",	    1200000, PTP_VENDOR_NIKON },
+	{ "180",	    1800000, PTP_VENDOR_NIKON },
+	{ "240",	    2400000, PTP_VENDOR_NIKON },
+	{ "300",	    3000000, PTP_VENDOR_NIKON },
+	{ "480",	    4800000, PTP_VENDOR_NIKON },
+	{ "600",	    6000000, PTP_VENDOR_NIKON },
+	{ "720",	    7200000, PTP_VENDOR_NIKON },
+	{ "900",	    9000000, PTP_VENDOR_NIKON },
+	{ N_("Bulb"),	0xffffffff, PTP_VENDOR_NIKON },
+	{ N_("Time"),	0xfffffffd, PTP_VENDOR_NIKON },
+};
+GENERIC32TABLE(Nikon_Z8_ShutterSpeed2,nikon_z8_shutterspeed2)
+
 static struct deviceproptableu8 nikon_d90_activedlighting[] = {
 	{ N_("Extra high"), 0x00,   0 },
 	{ N_("High"),       0x01,   0 },
@@ -11774,6 +11844,12 @@ static struct submenu nikon_z6_capture_settings[] = {
 	{ 0,0,0,0,0,0,0 },
 };
 
+static struct submenu nikon_z8_capture_settings[] = {
+	{ N_("Image Quality"),                  "imagequality",         PTP_DPC_CompressionSetting,     PTP_VENDOR_NIKON,   PTP_DTC_UINT8,  _get_Nikon_D850_Compression,    _put_Nikon_D850_Compression },
+	{ N_("Shutter Speed 2 z8"),             "shutterspeed2",        PTP_DPC_ExposureTime,           PTP_VENDOR_NIKON,   PTP_DTC_UINT32, _get_Nikon_Z8_ShutterSpeed2,    _put_Nikon_Z8_ShutterSpeed2	},
+	{ 0,0,0,0,0,0,0 },
+};
+
 static struct submenu nikon_d5100_capture_settings[] = {
 	{ N_("Movie Quality"),          "moviequality",         PTP_DPC_NIKON_MovScreenSize,        0,                  PTP_DTC_UINT8,  _get_Nikon_D5100_MovieQuality,      _put_Nikon_D5100_MovieQuality },
 	{ N_("Exposure Program"),       "expprogram",           PTP_DPC_ExposureProgramMode,        0,                  PTP_DTC_UINT16, _get_NIKON_D5100_ExposureProgram,   _put_NIKON_D5100_ExposureProgram },
@@ -11891,7 +11967,7 @@ static struct menu menus[] = {
 	{ N_("Capture Settings"),           "capturesettings",  0x4b0,  0x044c, nikon_z6_capture_settings,      NULL,   NULL }, /* Z6_2 guessed */
 	{ N_("Capture Settings"),           "capturesettings",  0x4b0,  0x044f, nikon_z6_capture_settings,      NULL,   NULL }, /* Zfc guessed */
 	{ N_("Capture Settings"),           "capturesettings",  0x4b0,  0x0450, nikon_z6_capture_settings,      NULL,   NULL }, /* Z9 */
-	{ N_("Capture Settings"),           "capturesettings",  0x4b0,  0x0451, nikon_z6_capture_settings,      NULL,   NULL }, /* Z8 */
+	{ N_("Capture Settings"),           "capturesettings",  0x4b0,  0x0451, nikon_z8_capture_settings,      NULL,   NULL }, /* Z8 */
 	{ N_("Capture Settings"),           "capturesettings",  0x4b0,  0x0452, nikon_z6_capture_settings,      NULL,   NULL }, /* Z30 guessed */
 	{ N_("Capture Settings"),           "capturesettings",  0x4b0,  0,      nikon_generic_capture_settings, NULL,   NULL },
 	{ N_("Capture Settings"),           "capturesettings",  0,      0,      capture_settings_menu,          NULL,   NULL },
@@ -11911,9 +11987,9 @@ _get_config (Camera *camera, const char *confname, CameraWidget **outwidget, Cam
 	CameraWidget	*section, *widget, *window;
 	unsigned int	menuno, submenuno;
 	int 		ret;
-	uint32_t	*setprops = NULL;
+	char		**setprops = NULL;
 	unsigned int	i;
-	int		nrofsetprops = 0;
+	int		num_setprops = 0;
 	PTPParams	*params = &camera->pl->params;
 	CameraAbilities	ab;
 
@@ -11951,13 +12027,24 @@ _get_config (Camera *camera, const char *confname, CameraWidget **outwidget, Cam
 	}
 
 	for (menuno = 0; menuno < ARRAYSIZE(menus) ; menuno++ ) {
-		if (!menus[menuno].submenus) { /* Custom menu */
-			if (mode == MODE_GET) {
+		GP_LOG_D(
+			"menu: %3d: label: '%s' name: '%s' vendor: %04x:%04x ",
+			menuno,
+			menus[menuno].label,
+			menus[menuno].name,
+			menus[menuno].usb_vendorid,
+			menus[menuno].usb_productid
+		);
+		if (!menus[menuno].submenus) /* Custom menu */
+		{
+			if (mode == MODE_GET)
+			{
 				struct menu *cur = menus+menuno;
 				ret = cur->getfunc(camera, &section, cur);
 				if (ret == GP_OK)
 					gp_widget_append(window, section);
 			} /* else ... not supported in single get and list */
+			GP_LOG_D ( "continue" );
 			continue;
 		}
 		if ((menus[menuno].usb_vendorid != 0) && (ab.port == GP_PORT_USB)) {
@@ -11967,13 +12054,19 @@ _get_config (Camera *camera, const char *confname, CameraWidget **outwidget, Cam
 				(menus[menuno].usb_productid != ab.usb_product)
 			)
 				continue;
-			GP_LOG_D ("usb vendor/product specific path entered");
+			GP_LOG_D (
+				"usb vendor/product specific path entered: %04x:%04x",
+				ab.usb_vendor,
+				ab.usb_product
+			);
 		}
 
 		if (mode == MODE_GET) {
 			/* Standard menu with submenus */
+			GP_LOG_D("    looking up child widget by label: %s", _(menus[menuno].label));
 			ret = gp_widget_get_child_by_label (window, _(menus[menuno].label), &section);
 			if (ret != GP_OK) {
+				GP_LOG_D("    adding new child widget with label: %s name: %s", _(menus[menuno].label), menus[menuno].name);
 				gp_widget_new (GP_WIDGET_SECTION, _(menus[menuno].label), &section);
 				gp_widget_set_name (section, menus[menuno].name);
 				gp_widget_append (window, section);
@@ -11982,6 +12075,14 @@ _get_config (Camera *camera, const char *confname, CameraWidget **outwidget, Cam
 		for (submenuno = 0; menus[menuno].submenus[submenuno].name ; submenuno++ ) {
 			struct submenu *cursub = menus[menuno].submenus+submenuno;
 			widget = NULL;
+
+			GP_LOG_D(
+				"    submenu %2d: 0x%04x ('%s' / '%s')",
+				submenuno,
+				cursub->propid,
+				cursub->label,
+				cursub->name
+			);
 
 			if (	have_prop(camera,cursub->vendorid,cursub->propid) ||
 				((cursub->propid == 0) && have_prop(camera,cursub->vendorid,cursub->type))
@@ -11992,18 +12093,35 @@ _get_config (Camera *camera, const char *confname, CameraWidget **outwidget, Cam
 				 * needed for the vendor specific but different configs.
 				 */
 				if (cursub->propid) {
-					for (j=0;j<nrofsetprops;j++)
-						if (setprops[j] == cursub->propid)
+				    bool	have_prop = false;
+					for (j = 0; j < num_setprops; j++) {
+						if (0 == strcmp(setprops[j], cursub->name)) {
+							have_prop = true;
 							break;
-					if (j<nrofsetprops) {
-						GP_LOG_D ("Property '%s' / 0x%04x already handled before, skipping.", cursub->label, cursub->propid );
+						}
+					}
+        				if (have_prop)
+					{
+						GP_LOG_D (
+							"Property 0x%04x ('%s' / '%s')  already handled before, skipping.",
+							cursub->propid,
+							cursub->label,
+							cursub->name
+						);
 						continue;
 					}
-					if (nrofsetprops)
-						C_MEM (setprops = realloc(setprops,sizeof(setprops[0])*(nrofsetprops+1)));
-					else
+					if (num_setprops) {
+						C_MEM (setprops = realloc(setprops, sizeof(setprops[0]) * (num_setprops + 1)));
+					}
+					else {
 						C_MEM (setprops = malloc(sizeof(setprops[0])));
-					setprops[nrofsetprops++] = cursub->propid;
+					}
+					setprops[num_setprops++] = cursub->name;
+					GP_LOG_D("    added submenu item: 0x%04x ('%s' / '%s')",
+						cursub->propid,
+						cursub->label,
+						cursub->name
+					);
 				}
 				/* ok, looking good */
 				if (	((cursub->propid & 0x7000) == 0x5000) ||
@@ -12022,21 +12140,36 @@ _get_config (Camera *camera, const char *confname, CameraWidget **outwidget, Cam
 						CameraWidget* child = NULL;
 						int r = gp_widget_get_child_by_name(section, cursub->name, &child);
 						if (r == GP_OK && child != NULL) {
+							GP_LOG_D("    skipping child: 0x%04x ('%s' / '%s')",
+								cursub->propid,
+								cursub->label,
+								cursub->name
+							);
 							continue;
 						}
 					} else if (mode == MODE_LIST) {
 						gp_list_append (list, cursub->name, NULL);
 						continue;
 					}
-
-					GP_LOG_D ("Getting property '%s' / 0x%04x", cursub->label, cursub->propid );
+					GP_LOG_D (
+						"Getting property '%s' / '%s' / 0x%04x",
+						cursub->label,
+						cursub->name,
+						cursub->propid
+					);
 					memset(&dpd,0,sizeof(dpd));
 					ret = LOG_ON_PTP_E(ptp_generic_getdevicepropdesc(params,cursub->propid,&dpd));
 					if (ret != PTP_RC_OK)
 						continue;
 
 					if (cursub->type != dpd.DataType) {
-						GP_LOG_E ("Type of property '%s' expected: 0x%04x got: 0x%04x", cursub->label, cursub->type, dpd.DataType );
+						GP_LOG_E ("Type of property '%s' expected: %s (0x%04x) got: %s (0x%04x)",
+							cursub->label,
+							ptp_dtc_type_as_string(cursub->type),
+							cursub->type,
+							ptp_dtc_type_as_string(dpd.DataType),
+							dpd.DataType
+						);
 						/* str is incompatible to all others */
 						if ((PTP_DTC_STR == cursub->type) || (PTP_DTC_STR == dpd.DataType))
 							continue;
@@ -12053,7 +12186,7 @@ _get_config (Camera *camera, const char *confname, CameraWidget **outwidget, Cam
 					if (ret != GP_OK) {
 						/* the type might not have matched, try the next */
 						GP_LOG_E ("Widget get of property '%s' failed, trying to see if we have another...", cursub->label);
-						nrofsetprops--;
+						num_setprops--;
 						continue;
 					}
 					if (mode == MODE_SINGLE_GET) {
@@ -12073,7 +12206,12 @@ _get_config (Camera *camera, const char *confname, CameraWidget **outwidget, Cam
 							continue;
 						}
 
-						GP_LOG_D ("Getting function prop '%s' / 0x%04x", cursub->label, cursub->type );
+						GP_LOG_D (
+							"Getting function prop '%s' / '%s' / 0x%04x",
+							cursub->label,
+							cursub->name,
+							cursub->type
+						);
 						ret = cursub->getfunc (camera, &widget, cursub, NULL);
 						if (ret == GP_OK && cursub->putfunc == _put_None) {
 							gp_widget_set_readonly(widget, 1);
@@ -12104,7 +12242,12 @@ _get_config (Camera *camera, const char *confname, CameraWidget **outwidget, Cam
 					gp_list_append (list, cursub->name, NULL);
 					continue;
 				}
-				GP_LOG_D ("Getting property '%s' / 0x%04x", cursub->label, cursub->propid );
+				GP_LOG_D (
+					"Getting property '%s' / '%s' / 0x%04x",
+					cursub->label,
+					cursub->name,
+					cursub->propid
+				);
 				memset(&dpd,0,sizeof(dpd));
 				ptp_canon_eos_getdevicepropdesc (params,cursub->propid, &dpd);
 				ret = cursub->getfunc (camera, &widget, cursub, &dpd);
@@ -12135,7 +12278,12 @@ _get_config (Camera *camera, const char *confname, CameraWidget **outwidget, Cam
 					gp_list_append (list, cursub->name, NULL);
 					continue;
 				}
-				GP_LOG_D ("Getting property '%s' / 0x%04x", cursub->label, cursub->propid );
+				GP_LOG_D (
+					"Getting property '%s' / '%s' / 0x%04x",
+					cursub->label,
+					cursub->name,
+					cursub->propid
+				);
 				memset(&dpd,0,sizeof(dpd));
 				ret = cursub->getfunc (camera, &widget, cursub, &dpd);
 				if (ret != GP_OK) {
@@ -12174,18 +12322,6 @@ _get_config (Camera *camera, const char *confname, CameraWidget **outwidget, Cam
 		char			buf[21], *label;
 		PTPDevicePropDesc	dpd;
 		CameraWidgetType	type;
-
-#if 0 /* enable this for suppression of generic properties for already decoded ones */
-		int j;
-
-		for (j=0;j<nrofsetprops;j++)
-			if (setprops[j] == propid)
-				break;
-		if (j<nrofsetprops) {
-			GP_LOG_D ("Property 0x%04x already handled before, skipping.", propid );
-			continue;
-		}
-#endif
 
 		sprintf(buf,"%04x", propid);
 		if ((mode == MODE_SINGLE_GET) && strcmp (buf, confname))
@@ -12450,7 +12586,12 @@ _set_config (Camera *camera, const char *confname, CameraWidget *window, GPConte
 					continue;
 
 				gp_widget_set_changed (widget, FALSE); /* clear flag */
-				GP_LOG_D ("Setting property '%s' / 0x%04x", cursub->label, cursub->propid );
+				GP_LOG_D (
+					"Setting property '%s' / '%s' / 0x%04x",
+					cursub->label,
+					cursub->name,
+					cursub->propid
+				);
 				if (	((cursub->propid & 0x7000) == 0x5000) ||
 					(NIKON_1(params) && ((cursub->propid & 0xf000) == 0xf000))
 				){
@@ -12509,7 +12650,12 @@ _set_config (Camera *camera, const char *confname, CameraWidget *window, GPConte
 					continue;
 				gp_widget_set_changed (widget, FALSE); /* clear flag */
 				if ((cursub->propid & 0x7000) == 0x5000) {
-					GP_LOG_D ("Setting property '%s' / 0x%04x", cursub->label, cursub->propid);
+					GP_LOG_D (
+						"Setting property '%s' / '%s' / 0x%04x",
+						cursub->label,
+						cursub->name,
+						cursub->propid
+					);
 					memset(&dpd,0,sizeof(dpd));
 					ptp_canon_eos_getdevicepropdesc (params,cursub->propid, &dpd);
 					ret = cursub->putfunc (camera, widget, &propval, &dpd, &alreadyset);
@@ -12546,7 +12692,12 @@ _set_config (Camera *camera, const char *confname, CameraWidget *window, GPConte
 				if ((mode == MODE_SINGLE_SET) && strcmp (confname, cursub->name))
 					continue;
 				gp_widget_set_changed (widget, FALSE); /* clear flag */
-				GP_LOG_D ("Setting property '%s' / 0x%04x", cursub->label, cursub->propid);
+				GP_LOG_D (
+					"Setting property '%s' / '%s' / 0x%04x",
+					cursub->label,
+					cursub->name,
+					cursub->propid
+				);
 				memset(&dpd,0,sizeof(dpd));
 				ret = cursub->putfunc (camera, widget, &propval, &dpd, &alreadyset);
 				if (ret != GP_OK)

@@ -9749,6 +9749,26 @@ ptp_add_object_to_cache(PTPParams *params, uint32_t handle)
 	return ptp_object_want (params, handle, PTPOBJECT_OBJECTINFO_LOADED|PTPOBJECT_MTPPROPLIST_LOADED, &ob);
 }
 
+const char *ptp_dtc_type_as_string(int dtc_type)
+{
+    switch(dtc_type)
+    {
+        case PTP_DTC_UNDEF: return "PTP_DTC_UNDEF";
+        case PTP_DTC_INT8: return "PTP_DTC_INT8";
+        case PTP_DTC_UINT8: return "PTP_DTC_UINT8";
+        case PTP_DTC_INT16: return "PTP_DTC_INT16";
+        case PTP_DTC_UINT16: return "PTP_DTC_UINT16";
+        case PTP_DTC_INT32: return "PTP_DTC_INT32";
+        case PTP_DTC_UINT32: return "PTP_DTC_UINT32";
+        case PTP_DTC_INT64: return "PTP_DTC_INT64";
+        case PTP_DTC_UINT64: return "PTP_DTC_UINT64";
+        case PTP_DTC_INT128: return "PTP_DTC_INT128";
+        case PTP_DTC_UINT128: return "PTP_DTC_UINT128";
+        default: break;
+    }
+    return "ptp_dtc_type_as_string(int) not handled";
+}
+
 
 /*
  * Local Variables:

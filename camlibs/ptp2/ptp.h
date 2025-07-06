@@ -1913,6 +1913,8 @@ typedef struct _PTPCanonEOSDeviceInfo {
 #define PTP_DTC_INT128		0x0009
 #define PTP_DTC_UINT128		0x000A
 
+const char *ptp_dtc_type_as_string   (int dtc_type);
+
 #define PTP_DTC_ARRAY_MASK	0x4000
 
 #define PTP_DTC_AINT8		(PTP_DTC_ARRAY_MASK | PTP_DTC_INT8)
@@ -2513,7 +2515,7 @@ typedef struct _PTPCanonEOSDeviceInfo {
 #define PTP_DPC_NIKON_UserMode				0xD0FC
 #define PTP_DPC_NIKON_SceneMode2			0xD0FD
 #define PTP_DPC_NIKON_SelfTimerInterval			0xD0FE
-#define PTP_DPC_NIKON_ExposureTime			0xD100	/* Shutter Speed */
+#define PTP_DPC_NIKON_ExposureTime			0xD100	/* Shutter Speed 2 / shutterspeed2 */
 #define PTP_DPC_NIKON_ACPower				0xD101
 #define PTP_DPC_NIKON_WarningStatus			0xD102
 #define PTP_DPC_NIKON_MaximumShots			0xD103 /* remain shots (in RAM buffer?) */
